@@ -2,7 +2,6 @@ use image::{open, RgbImage, Rgb, ImageBuffer, Pixel, Luma, Primitive};
 use image::imageops;
 use std::{time::Instant, sync::{Arc, Mutex, atomic::{Ordering::SeqCst, AtomicU8}}};
 use std::thread;
-use rayon::prelude::*;
 use crossbeam::thread as cb_thread;
 
 struct FeatureField {
