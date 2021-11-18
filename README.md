@@ -17,3 +17,5 @@ Libraries used:
 TBD:
  - Quality/resolution options. Application currently samples 1/4 of the pixels for speed reasons.
  - Face detection.
+ - Video face tracking
+ - Camera implementation
