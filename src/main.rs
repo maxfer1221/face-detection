@@ -4,7 +4,6 @@ use std::{time::Instant, sync::{Arc, Mutex, atomic::{Ordering::SeqCst, AtomicU8}
 use std::thread;
 use crossbeam::thread as cb_thread;
 
-//split into arrays % 3
 struct FeatureField {
     field: Vec<Vec<AtomicU8>>,
     center: (u8, u8),
@@ -110,7 +109,7 @@ fn detect_features_clean(
     
     let counter: AtomicU8 = AtomicU8::new(1);
     
-    let now = Instant::now();
+    // let now = Instant::now();
     cb_thread::scope(|s| {
         let mut threads = Vec::new();
         for i in 0..th {
@@ -133,34 +132,6 @@ fn detect_features_clean(
             thread.join().unwrap();
         }
     }).unwrap();
-    println!("{:?}", now.elapsed());
-
-
-    // let now = Instant::now();
-    // cb_thread::scope(|s| {
-    //     let mut threads = Vec::new();
-    //     for i in 0..th {
-    //         threads.push(s.spawn(|_| loop {
-    //             let mut c = coords.lock().unwrap();
-    //             let ct = c.clone();
-    //             if c.0 < dim.0 - 5 {
-    //                 c.0 += 1;
-    //             } else if c.1 < dim.1 - 5 {
-    //                 c.1 += 1;
-    //                 c.0 = 3;
-    //             } else {
-    //                 break;
-    //             }
-    //             drop(c);
-    //             if get_feature_value(&pixels, ct.0 as usize, ct.1 as usize, t) == 1 {
-    //                 fm[ct.0 as usize][ct.1 as usize].store(1, SeqCst);
-    //             }
-    //         }));
-    //     }
-    //     for thread in threads {
-    //         thread.join().unwrap();
-    //     }
-    // }).unwrap();
     // println!("{:?}", now.elapsed());
 
     Ok(FeatureField { field: fm, center: (0, 0) })
