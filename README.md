@@ -5,7 +5,9 @@
 ## Usage
 1. `git clone https://github.com/maxfer1221/face_detection`
 2. `cd face_detection`
-3. `cargo run src/my_image.jpg 5 1`, `cargo run path/to/image feature_threshold thread_count`
+3. `cargo run src/my_image.jpg 5 1 3`, `cargo run path/to/image feature_threshold thread_count step_size`
+`thread_count` dictates how many threads the program can spawn. Minimum of 1.
+`step_size` dictates how many pixels it samples. A step size of 1 would sample every pixel, a step size of 2 would sample 1/4th of the pixels (half the height, half the width), etc.
 
 ## More information
 Feature extraction done through [FAST](https://medium.com/data-breach/introduction-to-orb-oriented-fast-and-rotated-brief-4220e8ec40cf)
@@ -15,7 +17,7 @@ Feature extraction done through [FAST](https://medium.com/data-breach/introducti
  - [crossbeam](https://crates.io/crates/crossbeam): Thread synchronization and scoping
 
 ### TBD:
- - Quality/resolution options. Application currently samples 1/4 of the pixels for speed reasons.
- - Face detection.
+ - ~~Quality/resolution options. Application currently samples 1/4 of the pixels for speed reasons~~
+ - Face detection
  - Video face tracking
  - Camera implementation
