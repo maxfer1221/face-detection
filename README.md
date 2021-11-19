@@ -13,14 +13,24 @@
 
 `step_size`: Dictates how many pixels the program samples. A step size of 1 would sample every pixel, a step size of 2 would sample 1/4th of the pixels (half the width, half the height), etc.
 
+### [Examples](https://github.com/maxfer1221/face_detection/tree/main/out)
+
+![image_1](https://github.com/maxfer1221/face_detection/tree/main/in/example1.jpg)
+![image_1_out](https://github.com/maxfer1221/face_detection/tree/main/out/example1.png)
+![image_2](https://github.com/maxfer1221/face_detection/tree/main/in/example2.jpeg)
+![image_2_out](https://github.com/maxfer1221/face_detection/tree/main/out/example2.png)
+![image_3](https://github.com/maxfer1221/face_detection/tree/main/in/example3.jpg)
+![image_3_out](https://github.com/maxfer1221/face_detection/tree/main/out/example1.png)
+
+
 ## More information
 Feature extraction done through [FAST](https://medium.com/data-breach/introduction-to-orb-oriented-fast-and-rotated-brief-4220e8ec40cf)
 
-### Libraries used:
+### Libraries used
  - [image](https://crates.io/crates/image): Image manipulation/creation
  - [crossbeam](https://crates.io/crates/crossbeam): Thread synchronization and scoping
 
-### TBD:
+### TBD
  - ~~Quality/resolution options. Application currently samples 1/4 of the pixels for speed reasons~~
  - Face detection
  - Video face tracking
