@@ -5,7 +5,7 @@
 ## Usage
 1. `git clone https://github.com/maxfer1221/face_detection`
 2. `cd face_detection`
-3. `cargo run src/my_image.jpg 5 1 3`, `cargo run path/to/image feature_threshold thread_count step_size`
+3. `cargo run in/example1.jpg 5 1 3`, `cargo run path/to/image feature_threshold thread_count step_size`
 
 `feature_threshold`: Dictates feature sensitivity. Higher values means less, more striking features will be found.
 
@@ -13,15 +13,20 @@
 
 `step_size`: Dictates how many pixels the program samples. A step size of 1 would sample every pixel, a step size of 2 would sample 1/4th of the pixels (half the width, half the height), etc.
 
-### [Examples](https://github.com/maxfer1221/face_detection/tree/main/out)
-
-![image_1](https://github.com/maxfer1221/face_detection/tree/main/in/example1.jpg)
-![image_1_out](https://github.com/maxfer1221/face_detection/tree/main/out/example1.png)
-![image_2](https://github.com/maxfer1221/face_detection/tree/main/in/example2.jpeg)
-![image_2_out](https://github.com/maxfer1221/face_detection/tree/main/out/example2.png)
-![image_3](https://github.com/maxfer1221/face_detection/tree/main/in/example3.jpg)
-![image_3_out](https://github.com/maxfer1221/face_detection/tree/main/out/example1.png)
-
+### Current Feature Extraction [Examples](https://github.com/maxfer1221/face_detection/tree/main/out)
+<p float="left">
+ <img display="inline" src="https://github.com/maxfer1221/face_detection/blob/main/in/example1.jpg?raw=true" alt="example_1" height="320">
+ <img src="https://github.com/maxfer1221/face_detection/blob/main/out/example1.png?raw=true" alt="example_1_out" height="320">
+</p>
+<p float="left">
+ <img display="inline" src="https://github.com/maxfer1221/face_detection/blob/main/in/example2.jpeg?raw=true" alt="example_2" width="400">
+ <img src="https://github.com/maxfer1221/face_detection/blob/main/out/example2.png?raw=true" alt="example_2_out" width="400">
+</p>
+<p float="left">
+ <img display="inline" src="https://github.com/maxfer1221/face_detection/blob/main/in/example3.jpg?raw=true" alt="example_3" width="400">
+ <img src="https://github.com/maxfer1221/face_detection/blob/main/out/example3.png?raw=true" alt="example_3_out" width="400">
+</p>
+Created with a `feature_threshold` of 6 and a `step_size` of 1
 
 ## More information
 Feature extraction done through [FAST](https://medium.com/data-breach/introduction-to-orb-oriented-fast-and-rotated-brief-4220e8ec40cf)
