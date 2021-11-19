@@ -26,7 +26,7 @@
  <img display="inline" src="https://github.com/maxfer1221/face_detection/blob/main/in/example3.jpg?raw=true" alt="example_3" width="400">
  <img src="https://github.com/maxfer1221/face_detection/blob/main/out/example3.png?raw=true" alt="example_3_out" width="400">
 </p>
-Created with a `feature_threshold` of 6 and a `step_size` of 1
+Created with a feature_threshold of 6 and a step_size of 1
 
 ## More information
 Feature extraction done through [FAST](https://medium.com/data-breach/introduction-to-orb-oriented-fast-and-rotated-brief-4220e8ec40cf)
