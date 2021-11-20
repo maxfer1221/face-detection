@@ -1,10 +1,15 @@
 [package]
 name = "face_detection"
-version = "0.1.0"
+version = "0.1.3"
+authors = ["Maximo Fernandez <maxfer1221@gmail.com"]
+description = "FAST Feature Extraction and Face Detection"
+liscense = "MIT"
+repository = "https://github.com/maxfer1221/face_detection"
+readme = "README.md"
+keywords = ["face detection", "feature extraction"]
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
-image = "*"
-crossbeam = "*"
+image = "0.23.14"
+crossbeam = "0.8.1"
+rscam = "0.5.5"

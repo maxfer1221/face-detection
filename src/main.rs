@@ -4,6 +4,7 @@ use std::path::PathBuf;
 use crossbeam::thread as cb_thread;
 mod image_processing;
 mod features;
+mod video_capture;
 
 // Benchmarking module
 use std::time::Instant;
@@ -72,6 +73,8 @@ impl Helper for RgbImage {
 
 fn main() {
 
+    video_capture::capture_video();
+        
     let args: &[String] = &std::env::args().collect::<Vec<String>>();
     let img_name: &String = &args[1];
     let t: i16 = args[2].parse::<i16>().unwrap();
