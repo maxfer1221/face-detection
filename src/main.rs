@@ -17,11 +17,12 @@ trait Helper where Self: Sized {
         th: u8, 
         step: usize, 
         img_name: &String) -> Result<(), ()>; 
-    // fn bounding_box(self, ff: &FeatureField) -> Self;
+    fn bounding_box(self, ff: &features::FeatureField, img_name: &String) -> Self; 
 }
 impl Helper for RgbImage {
     fn feature_image(
-        &self, dim: (u32, u32), 
+        &self, 
+        dim: (u32, u32), 
         ff: &features::FeatureField, 
         th: u8, 
         step: usize, 
@@ -34,7 +35,7 @@ impl Helper for RgbImage {
 
         // let now = Instant::now();
         cb_thread::scope(|s| {
-            let mut threads = Vec::new();
+            let mut threads = Vec::with_capacity(th as usize);
             for _i in 0..th {
                 threads.push(s.spawn(|_| {
                     let c = counter.fetch_add(1, SeqCst);
@@ -62,18 +63,34 @@ impl Helper for RgbImage {
         let img_name = img_name.file_stem().unwrap().to_str().unwrap();
         let now = Instant::now();
         (*img_mut).save(format!("{}{}{}", "out/", img_name, ".png")).unwrap();
+        // (*img_mut).save("out/output.jpg").unwrap();
         println!("{:?}", now.elapsed());
         Ok(())
     }
 
-    // fn bounding_box(self, ff: &FeatureField) -> Self { 
-    //     self
-    // }
+    fn bounding_box(mut self, ff: &features::FeatureField, img_name: &String) -> Self { 
+        for x in 0..ff.get_box().get_range(0) {
+            self.put_pixel(
+                x as u32 + ff.get_box().get_center(0) as u32,
+                ff.get_box().get_range(1) as u32 + ff.get_box().get_range(1) as u32,
+                Rgb([255, 0, 0]),
+            );
+            self.put_pixel(
+                x as u32 + ff.get_box().get_center(0) as u32,
+                ff.get_box().get_center(1) as u32 - ff.get_box().get_range(1) as u32,
+                Rgb([255, 0, 0]),
+            );
+        }
+        let img_name = PathBuf::from(img_name);
+        let img_name = img_name.file_stem().unwrap().to_str().unwrap();
+        self.save(format!("{}{}{}", "out/", img_name, ".png")).unwrap();
+        self
+    }
 }
 
 fn main() {
 
-    video_capture::capture_video();
+    // video_capture::capture_video((true, 10), (1, 30), (1280, 720));
         
     let args: &[String] = &std::env::args().collect::<Vec<String>>();
     let img_name: &String = &args[1];
@@ -89,11 +106,13 @@ fn main() {
         Ok(i) => (i.into_rgb8(), image::image_dimensions(img_name).unwrap())
     };
 
-    let feature_field = 
+    let mut feature_field = 
         image_processing::detect_features_clean(&img, dimensions, t, th, step).unwrap();
-    println!("{:?}", feature_field.find_average((dimensions.0 as usize / 2 as usize, (dimensions.1 / 2) as usize), (300, 300)));
-    // img = img.bounding_box(&feature_field);
+    feature_field.next_box((-50, -20));
+    feature_field.next_box((-50, -20));
+    // println!("{:?}", feature_field.find_average((dimensions.0 as usize / 2 as usize, (dimensions.1 / 2) as usize), (300, 300)));
     let _i = img.feature_image(dimensions, &feature_field, th, step, img_name);
+    img.bounding_box(&feature_field, img_name);
     // create_final_image(&img).unwrap();
 }
 

@@ -31,6 +31,9 @@ Created with a feature_threshold of 6 and a step_size of 1
 ## More information
 Feature extraction done through [FAST](https://medium.com/data-breach/introduction-to-orb-oriented-fast-and-rotated-brief-4220e8ec40cf)
 
+### Dependencies
+ - libv4l-dev
+
 ### Libraries used
  - [image](https://crates.io/crates/image): Image manipulation/creation
  - [crossbeam](https://crates.io/crates/crossbeam): Thread synchronization and scoping

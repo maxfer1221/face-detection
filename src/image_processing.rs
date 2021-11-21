@@ -1,6 +1,6 @@
 use image::{RgbImage, Pixel, ImageBuffer};
 use image::imageops;
-use std::sync::{atomic::{Ordering::SeqCst, AtomicU8}};
+use std::sync::{atomic::{Ordering::SeqCst, AtomicU8, AtomicUsize}};
 use crossbeam::thread as cb_thread;
 use crate::features::FeatureField;
 
@@ -15,6 +15,7 @@ pub fn detect_features_clean(
     let img = imageops::grayscale(img);
 
     let (fm, pixels) = create_matrices(&img, ud);
+    let pc = AtomicUsize::new(0);
     
     // let now = Instant::now();
     let counter: AtomicU8 = AtomicU8::new(1);
@@ -32,6 +33,7 @@ pub fn detect_features_clean(
                 for yt in 2..bound {
                     let y = (yt * step * th as usize) + (step * c as usize);
                     if get_feature_value(&pixels, x, y, t) == 1 {
+                        pc.fetch_add(1, SeqCst);
                         fm[x][y].store(1, SeqCst);
                     }
                 }
@@ -44,7 +46,7 @@ pub fn detect_features_clean(
     }).unwrap();
     // println!("{:?}", now.elapsed());
 
-    Ok(FeatureField::from(fm, (0u32, 0u32), ud))
+    Ok(FeatureField::from(fm, th, (ud.0 as isize, ud.1 as isize), (ud.0/2, ud.1/2), ((ud.0/2) as isize, (ud.1/2) as isize), pc.load(SeqCst)))
 }
 
 fn create_matrices<'a>(
